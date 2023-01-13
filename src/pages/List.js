@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Info from "./Info";
-import db from "../lib/init-firebase";
 import Data from "./Data";
 function List({ todoList, setTodoList, todoData, setTodoData }) {
 	return (
