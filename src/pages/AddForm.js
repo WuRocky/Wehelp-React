@@ -1,12 +1,30 @@
 import React, { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
+import db from "../lib/init-firebase";
 
 function AddForm({ todoList, setTodoList }) {
 	let [input, setInput] = useState("");
 
 	const buttonHandler = (e) => {
 		e.preventDefault();
-		setTodoList([...todoList, { input, id: uuidv4() }]);
+		if (input === "") {
+			alert("請輸入文字");
+			return;
+		}
+		let uid = uuidv4();
+
+		db.collection("todo-list")
+			.add({
+				text: input,
+				id: uid,
+			})
+			.then(function (docRef) {
+				setTodoList([...todoList, { input, id: uid }]);
+			})
+			.catch(function (error) {
+				console.error("Error adding document: ", error);
+			});
+
 		setInput("");
 	};
 

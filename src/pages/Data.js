@@ -1,10 +1,11 @@
 import React from "react";
 import db from "../lib/init-firebase";
-function Info({ list, todoList, setTodoList }) {
+function Data({ data, todoData, setTodoData }) {
 	const deleteHandler = () => {
-		setTodoList(todoList.filter((e) => e.id !== list.id));
+		// console.log(setTodoData);
+		setTodoData(todoData.filter((e) => e.id !== data.id));
 		db.collection("todo-list")
-			.where("id", "==", list.id)
+			.where("id", "==", data.id)
 			.get()
 			.then((querySnapshot) => {
 				querySnapshot.forEach((doc) => {
@@ -12,14 +13,13 @@ function Info({ list, todoList, setTodoList }) {
 				});
 			});
 	};
-	// console.log(todoList);
-	// console.log(setTodoList);
+	// console.log(itme.text);
 	return (
 		<div className="list">
-			<div>{list.input}</div>
+			<div>{data.text}</div>
 			<button onClick={deleteHandler}>刪除</button>
 		</div>
 	);
 }
 
-export default Info;
+export default Data;
